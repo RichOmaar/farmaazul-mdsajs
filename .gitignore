@@ -1,0 +1,81 @@
+# -------------------------
+# OS / Editor cruft
+# -------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.orig
+.idea/
+.vscode/
+.eslintcache
+
+# -------------------------
+# Node / JS
+# -------------------------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# Keep lockfiles! (do NOT ignore these)
+# !package-lock.json
+# !yarn.lock
+# !pnpm-lock.yaml
+
+# -------------------------
+# Build outputs / caches
+# -------------------------
+dist/
+build/
+.out/
+coverage/
+.turbo/
+.swc/
+.cache/
+.tmp/
+
+# -------------------------
+# Next.js (storefront)
+# -------------------------
+.next/
+out/
+.vercel/
+
+# -------------------------
+# Medusa v2
+# -------------------------
+.medusa/
+# If you ever use a local FS provider for media (not S3), ignore uploads:
+medusa-v2-backend/public/uploads/
+
+# -------------------------
+# Strapi v4
+# -------------------------
+strapi-v4/build/
+strapi-v4/dist/
+strapi-v4/.cache/
+strapi-v4/.tmp/
+# Media library (only if stored on disk; with S3 this stays empty)
+strapi-v4/public/uploads/
+
+# If you mount node_modules as a named volume, keep it ignored anyway:
+strapi-v4/node_modules/
+
+# -------------------------
+# Environment / secrets
+# -------------------------
+.env
+.env.*
+**/.env
+**/.env.*
+# Keep sample env templates if you add them:
+!**/.env.example
+!**/.env.sample
+
+# -------------------------
+# Docker (local overrides)
+# -------------------------
+docker-compose.override.yml
+*.pid

@@ -1,0 +1,70 @@
+services:
+  # postgres:
+  #   image: postgres:15
+  #   container_name: pg-main
+  #   environment:
+  #     POSTGRES_USER: medusa
+  #     POSTGRES_PASSWORD: medusa
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pg_data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U medusa"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 10
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.9
+    container_name: meili
+    environment:
+      MEILI_MASTER_KEY: masterKey
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+
+  strapi:
+    build:
+      context: ../strapi-v4
+      dockerfile: Dockerfile
+    container_name: strapi
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      NODE_ENV: development
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: strapi_v4
+      DATABASE_USERNAME: medusa
+      DATABASE_PASSWORD: medusa
+      DATABASE_SSL: "false"
+      APP_KEYS: "<key1>,<key2>,<key3>,<key4>"
+      JWT_SECRET: "<jwt_secret>"
+      ADMIN_JWT_SECRET: "<admin_jwt_secret>"
+      API_TOKEN_SALT: "<api_token_salt>"
+      STRAPI_S3_REGION: <text>
+      STRAPI_S3_BUCKET: <text>
+      STRAPI_S3_ACCESS_KEY_ID: <text>
+      STRAPI_S3_SECRET_ACCESS_KEY: <text>
+      # Optional, if you want a nicer domain (CDN/CloudFront):
+      STRAPI_S3_BASE_URL: https://gm-strapi-uploads.s3.us-east-1.amazonaws.com
+    ports:
+      - "1337:1337"
+    volumes:
+      - ../strapi-v4:/opt/app                  # your source (live reload)
+      - strapi_node_modules:/opt/app/node_modules   # <-- add this
+      - strapi_uploads:/opt/app/public/uploads
+
+
+volumes:
+  pg_data:
+  meili_data:
+  strapi_uploads:
+  strapi_node_modules:
+
