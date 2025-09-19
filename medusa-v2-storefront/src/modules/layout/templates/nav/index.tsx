@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 
+import Image from "next/image"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -22,10 +23,16 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="hover:text-ui-fg-base"
               data-testid="nav-store-link"
             >
-              Medusa Store
+              <Image
+                src="/images/logo_farma_azul.png"
+                alt="Farma Azul"
+                width={140}
+                height={28}
+                priority
+              />
             </LocalizedClientLink>
           </div>
 
