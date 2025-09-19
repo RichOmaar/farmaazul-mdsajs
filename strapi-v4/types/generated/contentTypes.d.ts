@@ -365,6 +365,7 @@ export interface AdminUser extends Schema.CollectionType {
 export interface ApiPostPost extends Schema.CollectionType {
   collectionName: 'posts';
   info: {
+    description: '';
     displayName: 'Posts';
     pluralName: 'posts';
     singularName: 'post';
@@ -377,6 +378,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
       Attribute.Private;
+    image: Attribute.Media<'images'>;
     publishedAt: Attribute.DateTime;
     title: Attribute.String;
     updatedAt: Attribute.DateTime;
